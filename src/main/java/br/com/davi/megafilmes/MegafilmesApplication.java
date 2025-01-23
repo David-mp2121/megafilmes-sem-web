@@ -4,6 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.com.davi.megafilmes.model.DadosEpisodio;
 import br.com.davi.megafilmes.model.DadosSerie;
 import br.com.davi.megafilmes.service.ConsumoAPI;
 import br.com.davi.megafilmes.service.ConverteDados;
@@ -21,7 +22,7 @@ public class MegafilmesApplication implements CommandLineRunner {
 		String apikey = "949d261f";
 		var consumoApi = new ConsumoAPI();
 		
-		var endereco = "https://www.omdbapi.com/?t=gilmore+girls&apikey=949d261f";
+		var endereco = "https://www.omdbapi.com/?t=arrow&apikey=949d261f";
 		
 		var json = consumoApi.ObterDados(endereco);
 		
@@ -30,8 +31,19 @@ public class MegafilmesApplication implements CommandLineRunner {
 		
 		var conversos = new ConverteDados();
 		
-		DadosSerie dados = conversos.obterDados(json, DadosSerie.class);
-		System.out.println(dados);
+		DadosSerie dadosSerie = conversos.obterDados(json, DadosSerie.class);
+		
+		json = consumoApi.ObterDados("https://www.omdbapi.com/?t=arrow&season=1&episode=1&apikey=949d261f");
+		
+		System.out.println(json);
+		
+		
+		System.out.println("\n\n"+dadosSerie+"\n\n");
+
+		
+		DadosEpisodio dadosEpisodio = conversos.obterDados(json, DadosEpisodio.class);
+		
+		System.out.println(dadosEpisodio);
 
 	}
 

@@ -1,0 +1,9 @@
+package br.com.davi.megafilmes.model;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public record DadosEpisodio(@JsonAlias("Title") String titulo, @JsonAlias("Episode") String numero,
+		@JsonAlias("imdbRating") String avaliação, @JsonAlias("Released") String dataLancamento) {
+
+}
