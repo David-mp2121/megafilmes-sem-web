@@ -1,5 +1,6 @@
 package br.com.davi.megafilmes.model;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public class Episodio {
@@ -15,9 +16,18 @@ public class Episodio {
 		this.temporada = numeroTemporada;
 		this.titulo = d.titulo();
 		this.numero = Integer.valueOf(d.numero());
-		this.avaliacao = Double.valueOf(d.avaliacao());
-		this.dataLancamento= LocalDate.parse(d.dataLancamento());
 		
+		try {
+		this.avaliacao = Double.valueOf(d.avaliacao());
+		
+		}catch(NumberFormatException ex) {
+			this.avaliacao =  0.0;
+		}
+		try {
+		this.dataLancamento= LocalDate.parse(d.dataLancamento());
+		}catch(DateTimeException ex) {
+			this.dataLancamento = null;
+		}
 	}
 	public String getTitulo() {
 		return titulo;
@@ -48,5 +58,13 @@ public class Episodio {
 	}
 	public void setDataLancamento(LocalDate dataLancamento) {
 		this.dataLancamento = dataLancamento;
+	}
+	@Override
+	public String toString() {
+		return "temporada=" + temporada +
+				", titulo='" + titulo + '\'' +
+				", numeroEpisodio=" + numero +
+				", avaliacao=" + avaliacao +
+				", dataLancamento=" + dataLancamento  ;
 	}
 }
